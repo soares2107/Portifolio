@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nome = document.getElementById("nome").value;
             const email = document.getElementById("email").value;
+            const telefone = document.getElementById("telefone").value;
             const mensagem = document.getElementById("mensagem").value;
 
             try {
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ nome, email, mensagem }),
+                    body: JSON.stringify({ nome, email, telefone, mensagem }),
                 });
 
                 const resultado = await resposta.json();
