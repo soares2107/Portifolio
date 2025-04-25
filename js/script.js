@@ -6,8 +6,8 @@ menu.addEventListener('click', () => {
     navResponsive.style.display = navResponsive.style.display === 'block' ? 'none' : 'block';
 });
 
-const $html = document.querySelector('html')
-const $checkbox = document.querySelector('#switch')
+const $html = document.querySelector('html');
+const $checkbox = document.querySelector('#switch');
 
 $checkbox.addEventListener('change', function () {
     $html.classList.toggle('dark-mode');
@@ -19,45 +19,44 @@ $checkbox.addEventListener('change', function () {
 });
 
 ScrollReveal({
-    reset: true, // repete a animação ao rolar novamente
+    reset: true,
     distance: '60px',
     duration: 1000,
     delay: 200
-  });
-  
-  ScrollReveal().reveal('.home-content, .about-content, .services-box, .portifolio-box, form', {
+});
+
+ScrollReveal().reveal('.home-content, .about-content, .services-box, .portifolio-box, form', {
     origin: 'bottom',
     interval: 200
-  });
-  
-  document.addEventListener('DOMContentLoaded', () => {
+});
+
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');
     if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-  
-        const data = {
-          nome: form.querySelector('input[placeholder="Full Name"]').value,
-          email: form.querySelector('input[placeholder="E-mail"]').value,
-          telefone: form.querySelector('input[placeholder="Phone Number"]').value,
-          assunto: form.querySelector('input[placeholder="Subject"]').value,
-          mensagem: form.querySelector('textarea').value
-        };
-  
-        try {
-          const res = await fetch('http://localhost:5000/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-          const json = await res.json();
-          alert(json.message);
-          form.reset();
-        } catch (err) {
-          alert('Erro ao enviar mensagem.');
-          console.error(err);
-        }
-      });
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById("nome").value;
+            const email = document.getElementById("email").value;
+            const mensagem = document.getElementById("mensagem").value;
+
+            try {
+                const resposta = await fetch("http://localhost:5000/api/contato", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ nome, email, mensagem }),
+                });
+
+                const resultado = await resposta.json();
+                alert(resultado.message);
+            } catch (erro) {
+                alert("Erro ao enviar a mensagem.");
+                console.error(erro);
+            }
+
+            form.reset();
+        });
     }
-  });
-  
+});
